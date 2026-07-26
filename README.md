@@ -1,6 +1,6 @@
 # Changes since the last Beat Saber launch
 
-The installed live build is **CatteBot 0.9.7-17**.
+The installed live build is **CatteBot 0.9.7-18**.
 
 - CatteBot records the exact saber-root and saber-tip pose applied each frame after movement limits.
 - The trace labels the current motion phase and records speed, acceleration, and limiter activity. The session report includes the trace path, row count, and write-error count.
@@ -25,12 +25,13 @@ The installed live build is **CatteBot 0.9.7-17**.
 - Loloppe, Paul, Wide-Paul, and metronome intents can now construct offline blade-contact trajectories with pre-swing, timed-contact, and follow-through waypoints. Loloppe members share one contact center; all results are marked calibration-required and not live-ready.
 - Dot-path and technical-slider intents now construct offline contact trajectories whose direction comes from measured spatial tangents. They preserve every timed contact, reject arrows and zero-motion tangents, and remain calibration-required and not live-ready.
 - Directional mixed-colour pairs now produce synchronized offline left/right contact trajectories. Both sabers share one averaged contact time while retaining independent positions, directions, pre-swings, and follow-throughs; dot pairs remain unresolved and rejected. The result remains calibration-required and not live-ready.
-- Same-hand dot walls now produce explicit low-to-high and high-to-low offline sweep candidates along their measured dominant axis. Neither direction is selected: both require replay-based direction selection and saber calibration, remain not live-ready, and mixed-hand walls remain unresolved.
+- Same-hand dot walls now produce explicit low-to-high and high-to-low offline sweep candidates along their measured dominant axis. Neither direction is selected: both require replay-based direction selection and saber calibration and remain not live-ready.
+- Mixed-hand dot walls now produce all four offline combinations of independently low-to-high or high-to-low left/right saber sweeps. A one-contact hand keeps both global-axis direction candidates; all four combinations require replay-based selection and calibration and remain not live-ready.
 - The phrase policy, pattern recognition, and new motion constraints are installed foundations; they do not yet replace the current live pass-first saber planner.
 
 # What to test
 
-1. Start Beat Saber and confirm the newest log says **CatteBot 0.9.7.17** is initializing.
+1. Start Beat Saber and confirm the newest log says **CatteBot 0.9.7.18** is initializing.
 2. Play any map, press **F9** to enable CatteBot, and finish or leave the song normally.
 3. Open the newest CatteBot report and check that **Trace enabled** is True, **Applied-pose rows** is greater than zero, and **Trace write errors** is 0.
 4. Check that the reported CatteBot_trajectory_trace_*.csv file exists.
@@ -40,5 +41,5 @@ The installed live build is **CatteBot 0.9.7-17**.
 8. Bomb avoidance should react only when the saber tip would intersect a bomb at the same time. Bombs beside the blade should not cause avoidable note misses.
 9. Saber movement should not teleport, snap, or make obviously impossible speed or acceleration changes.
 10. Note whether any miss happens immediately after a reset, during a stack, or because the saber moved away from a note to avoid a bomb.
-11. Pattern recognition and motion-intent selection, including dot paths, technical sliders, mixed-colour pairs, dot walls, linked arcs, chains, streams, vibro, jumps, dense sections, crossovers, palm-up candidates, wrist rolls, and wrist resets, are not connected to live swing generation yet. The new offline Loloppe, Paul, Wide-Paul, metronome, dot-path, technical-slider, directional mixed-colour-pair, and same-hand dot-wall candidate trajectories are also not connected. Report any new behavior change as a regression.
+11. Pattern recognition and motion-intent selection, including dot paths, technical sliders, mixed-colour pairs, dot walls, linked arcs, chains, streams, vibro, jumps, dense sections, crossovers, palm-up candidates, wrist rolls, and wrist resets, are not connected to live swing generation yet. The new offline Loloppe, Paul, Wide-Paul, metronome, dot-path, technical-slider, directional mixed-colour-pair, and same-hand and mixed-hand dot-wall candidate trajectories are also not connected. Report any new behavior change as a regression.
 12. Before the next feature, provide the newest CatteBot report, trajectory trace CSV, and Beat Saber log, plus the visual observations above.
