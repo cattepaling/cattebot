@@ -1,6 +1,6 @@
 # Changes since the last Beat Saber launch
 
-The installed live build is **CatteBot 0.9.7-9**.
+The installed live build is **CatteBot 0.9.7-10**.
 
 - CatteBot records the exact saber-root and saber-tip pose applied each frame after movement limits.
 - The trace labels the current motion phase and records speed, acceleration, and limiter activity. The session report includes the trace path, row count, and write-error count.
@@ -14,11 +14,13 @@ The installed live build is **CatteBot 0.9.7-9**.
 - Recognized Loloppe, Paul, Wide-Paul, and metronome occurrences now map to explicit shared-cut, continuous-sweep, wide-sweep, or alternating-pendulum motion intents.
 - The installed Core now recognizes regular same-hand directionless-note paths and separates strongly turning technical sliders while excluding arrow notes, native slider objects, repeated-position dots, irregular timing, and large jumps.
 - Dot paths and technical sliders now map to explicit continuous-waypoint or curved-technical-sweep motion intents.
+- The installed Core now recognizes exact two-note opposite-colour simultaneous pairs and broad simultaneous dot walls while excluding same-colour pairs, offset notes, dense arrow chords, compact dot clusters, arrow walls, and native slider groups.
+- Mixed-colour pairs and dot walls now map to coordinated dual-cut or coordinated wall-sweep motion intents.
 - The phrase policy, pattern recognition, and new motion constraints are installed foundations; they do not yet replace the current live pass-first saber planner.
 
 # What to test
 
-1. Start Beat Saber and confirm the newest log says **CatteBot 0.9.7.9** is initializing.
+1. Start Beat Saber and confirm the newest log says **CatteBot 0.9.7.10** is initializing.
 2. Play any map, press **F9** to enable CatteBot, and finish or leave the song normally.
 3. Open the newest CatteBot report and check that **Trace enabled** is True, **Applied-pose rows** is greater than zero, and **Trace write errors** is 0.
 4. Check that the reported CatteBot_trajectory_trace_*.csv file exists.
@@ -28,5 +30,5 @@ The installed live build is **CatteBot 0.9.7-9**.
 8. Bomb avoidance should react only when the saber tip would intersect a bomb at the same time. Bombs beside the blade should not cause avoidable note misses.
 9. Saber movement should not teleport, snap, or make obviously impossible speed or acceleration changes.
 10. Note whether any miss happens immediately after a reset, during a stack, or because the saber moved away from a note to avoid a bomb.
-11. Pattern recognition and motion-intent selection, including the new dot-path and technical-slider labels, are not connected to live swing generation yet, so they should not change gameplay. Report any new behavior change as a regression.
+11. Pattern recognition and motion-intent selection, including the dot-path, technical-slider, mixed-colour-pair, and dot-wall labels, are not connected to live swing generation yet, so they should not change gameplay. Report any new behavior change as a regression.
 12. Before the next feature, provide the newest CatteBot report, trajectory trace CSV, and Beat Saber log, plus the visual observations above.
