@@ -1,13 +1,13 @@
 # Changes since the last Beat Saber launch
 
-The installed live build is **CatteBot 0.9.7-1**.
+The installed live build is **CatteBot 0.9.7-2**.
 
-- Double-directional resets now use three stages: reverse the finished swing to neutral, move the hand while holding neutral, then wind up for the next note.
-- Live saber-root movement now enforces the configured speed and acceleration limits. The previous 160 m/s diagnostic ceiling was replaced by the 16 m/s movement limit.
+- CatteBot now records the exact saber-root and saber-tip pose applied each frame after movement limits.
+- The trace labels the current motion phase and records speed, acceleration, and limiter activity. The session report includes the trace path, row count, and write-error count.
 
 # What to test
 
-1. Play a map that reliably creates same-colour double-directional resets and press **F9** to enable CatteBot.
-2. Watch the transition between opposite-direction notes. Check whether the saber reverses to neutral, transfers, and winds up—or still makes a full 360-degree loop.
-3. Watch for teleports, unnatural speed or acceleration, new misses, and loss of normal saber control.
-4. After the song, provide the newest CatteBot report and Beat Saber log, plus a short description of what you saw.
+1. Play any map, press **F9** to enable CatteBot, and finish or leave the song normally.
+2. Open the newest CatteBot report and check that **Trace enabled** is True, **Applied-pose rows** is greater than zero, and **Trace write errors** is 0.
+3. Check that the reported CatteBot_trajectory_trace_*.csv file exists.
+4. Provide the newest CatteBot report, trajectory trace CSV, and Beat Saber log. Also note any unexpected gameplay change, because this update is intended to add diagnostics without changing saber behavior.
