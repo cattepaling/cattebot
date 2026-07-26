@@ -1,6 +1,6 @@
 # Changes since the last Beat Saber launch
 
-The installed live build is **CatteBot 0.9.7-29**.
+The installed live build is **CatteBot 0.9.7-30**.
 
 - CatteBot records the exact saber-root and saber-tip pose applied each frame after movement limits.
 - The trace labels the current motion phase and records speed, acceleration, and limiter activity. The session report includes the trace path, row count, and write-error count.
@@ -38,11 +38,12 @@ The installed live build is **CatteBot 0.9.7-29**.
 - A measured, time-stamped offline body envelope now checks the finite-radius applied blade against a head sphere, torso capsule, and opposite-hand sphere. It reports signed clearances, catches interior crossings, and treats tangency as contact. This static validator still requires swept-path timing validation, is not live-ready, and is disconnected from live motion.
 - A bounded swept validator now interpolates timed saber roots and measured body envelopes using explicit time/spatial subdivision limits. It reports the first sampled conflict and certifies clear intervals only when clearance exceeds a conservative blade/body travel bound; unresolved coarse intervals remain indeterminate. It is offline, not live-ready, and disconnected from live motion.
 - Whole-trajectory validation now chains every adjacent bounded interval across an ordered saber/body pose sequence. It keeps the first collision or unresolved interval, minimum clearance, sample/subdivision diagnostics, and rejects time disorder or saber-calibration changes. It is offline, not live-ready, and disconnected from live motion.
+- The first replay-data-learning foundation now normalizes immutable timed head, left-controller, and right-controller pose runs with stable replay/map identity, per-saber calibration IDs, contributor provenance, native outcomes, and timing/path diagnostics. It still requires beatmap-event alignment and dataset validation, is not learning-ready, and is disconnected from live motion.
 - The phrase policy, pattern recognition, and new motion constraints are installed foundations; they do not yet replace the current live pass-first saber planner.
 
 # What to test
 
-1. Start Beat Saber and confirm the newest log says **CatteBot 0.9.7.29** is initializing.
+1. Start Beat Saber and confirm the newest log says **CatteBot 0.9.7.30** is initializing.
 2. Play any map, press **F9** to enable CatteBot, and finish or leave the song normally.
 3. Open the newest CatteBot report and check that **Trace enabled** is True, **Applied-pose rows** is greater than zero, and **Trace write errors** is 0.
 4. Check that the reported CatteBot_trajectory_trace_*.csv file exists.
@@ -52,5 +53,5 @@ The installed live build is **CatteBot 0.9.7-29**.
 8. Bomb avoidance should react only when the saber tip would intersect a bomb at the same time. Bombs beside the blade should not cause avoidable note misses.
 9. Saber movement should not teleport, snap, or make obviously impossible speed or acceleration changes.
 10. Note whether any miss happens immediately after a reset, during a stack, or because the saber moved away from a note to avoid a bomb.
-11. Pattern recognition and motion-intent selection, including dot paths, technical sliders, mixed-colour pairs, dot walls, linked arcs, chains, streams, vibro, jumps, dense sections, crossovers, palm-up candidates, wrist rolls, and wrist resets, are not connected to live swing generation yet. The new offline Loloppe, Paul, Wide-Paul, metronome, dot-path, technical-slider, directional and directionless mixed-colour-pair, same-hand and mixed-hand dot-wall candidate, native arc and chain, stream and vibro, jump, dense-section, and ergonomic contact trajectories plus the replay-calibratable contact-pose conversion, anatomy-constrained grip/reach/wrist solver, static body-collision validator, bounded swept body-collision validator, and whole-trajectory collision gate are also not connected. Report any new behavior change as a regression.
+11. Pattern recognition and motion-intent selection, including dot paths, technical sliders, mixed-colour pairs, dot walls, linked arcs, chains, streams, vibro, jumps, dense sections, crossovers, palm-up candidates, wrist rolls, and wrist resets, are not connected to live swing generation yet. The new offline Loloppe, Paul, Wide-Paul, metronome, dot-path, technical-slider, directional and directionless mixed-colour-pair, same-hand and mixed-hand dot-wall candidate, native arc and chain, stream and vibro, jump, dense-section, and ergonomic contact trajectories plus the replay-calibratable contact-pose conversion, anatomy-constrained grip/reach/wrist solver, static body-collision validator, bounded swept body-collision validator, whole-trajectory collision gate, and normalized replay-run contract are also not connected. Report any new behavior change as a regression.
 12. Before the next feature, provide the newest CatteBot report, trajectory trace CSV, and Beat Saber log, plus the visual observations above.
