@@ -42,7 +42,7 @@ The installed live build is **CatteBot 0.9.7-29**.
 
 # What to test
 
-1. Start Beat Saber and confirm the newest log says **CatteBot 0.9.7.25** is initializing.
+1. Start Beat Saber and confirm the newest log says **CatteBot 0.9.7.29** is initializing.
 2. Play any map, press **F9** to enable CatteBot, and finish or leave the song normally.
 3. Open the newest CatteBot report and check that **Trace enabled** is True, **Applied-pose rows** is greater than zero, and **Trace write errors** is 0.
 4. Check that the reported CatteBot_trajectory_trace_*.csv file exists.
