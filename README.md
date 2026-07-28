@@ -1,6 +1,6 @@
 # Changes since the last Beat Saber launch
 
-The installed live build is **CatteBot 1.0.8-experimental**.
+The installed live build is **CatteBot 1.0.9-experimental**.
 
 - CatteBot records the exact saber-root and saber-tip pose applied each frame after movement limits.
 - The trace labels the current motion phase and records speed, acceleration, and limiter activity. The session report includes the trace path, row count, and write-error count.
@@ -44,15 +44,16 @@ The installed live build is **CatteBot 1.0.8-experimental**.
 - Replay runs can now align every normalized beatmap event to exact-time head and controller poses after strict full-map-key matching. The aligner uses an explicit clock offset, exact frames or bounded interpolation, and reports wrong-map, empty, out-of-range, and excessive-gap issues. It still requires feature extraction and safety evaluation, is not learning-ready, and is disconnected from live motion.
 - The phrase policy, pattern recognition, and new motion constraints are installed foundations; they do not yet replace the current live pass-first saber planner.
 
-- The installed 1.0.8 pair includes bounded Catte-weighted replay-imitation fitting and held-out evaluation; it remains offline and does not control live sabers.
+- The installed 1.0.9 pair includes bounded Catte-weighted replay-imitation fitting and held-out evaluation; it remains offline and does not control live sabers.
 - Bounded BSOR v1 files can now be read through hash-bound, read-only sidecars with exact replay, map, calibration, completion, and contributor identity; audited 1.39.1 left-handed controller roles are normalized offline.
 - Exact-hash Standard legacy v2/v3 maps can now be normalized and aligned offline, including the audited Grains of Catte static-coordinate subset.
 - Vanilla v3 burst sliders now use the audited Beat Saber 1.39.1 head classification, slice timing, squished spawn curve, and final-slice metadata during offline map inspection and alignment.
 - Live shadow pattern routing now uses the detector's exact event snapshot instead of a shorter rolling window. Unexpected incomplete snapshots are deferred and are not counted as planner failures or reinforcement-reward samples.
+- Pattern plans now route detector-level primitives directly through strongly typed builders instead of sending consolidated multi-pattern phrases into exact-shape builders. Metronome, mixed-colour pairs, and one-hand or mixed-hand dot walls select their correct builder; incompatible evidence is counted as a route rejection instead of a planner failure or reinforcement-reward sample.
 
 # What to test
 
-1. Start Beat Saber and confirm the newest log says **CatteBot 1.0.8.0** is initializing.
+1. Start Beat Saber and confirm the newest log says **CatteBot 1.0.9.0** is initializing.
 2. Play any map, press **F9** to enable CatteBot, and finish or leave the song normally.
 3. Open the newest CatteBot report and check that **Trace enabled** is True, **Applied-pose rows** is greater than zero, and **Trace write errors** is 0.
 4. Check that the reported CatteBot_trajectory_trace_*.csv file exists.
@@ -66,4 +67,4 @@ The installed live build is **CatteBot 1.0.8-experimental**.
 12. Before the next feature, provide the newest CatteBot report, trajectory trace CSV, and Beat Saber log, plus the visual observations above.
 13. Play the built-in **Magic** on **ExpertPlus** (or another vanilla v3 burst-slider map) and confirm CatteBot starts and leaves the map without a new exception or load failure.
 14. This increment should not change live saber motion. Report any new swing behavior as a regression and provide the newest Beat Saber log and CatteBot report.
-15. In the newest experimental report, check **Timeline coverage deferrals** and confirm the log/report no longer says **Occurrence event is missing from the timeline**. If the played section contains recognized patterns, also confirm at least one pattern plan builds.
+15. In the newest experimental report, confirm **Timeline coverage deferrals** is 0, **Pattern plan failures** is 0, and at least one **Pattern plan** builds when the played section contains recognized patterns. **Pattern route rejections** may be non-zero for incompatible evidence, but those rejections should not appear as negative rows in the reward CSV. Also confirm the log/report never says **Occurrence event is missing from the timeline**.
