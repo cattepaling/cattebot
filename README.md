@@ -1,6 +1,6 @@
 # Changes since the last Beat Saber launch
 
-The installed live build is **CatteBot 0.9.7-33**.
+The installed live build is **CatteBot 1.0.7-experimental**.
 
 - CatteBot records the exact saber-root and saber-tip pose applied each frame after movement limits.
 - The trace labels the current motion phase and records speed, acceleration, and limiter activity. The session report includes the trace path, row count, and write-error count.
@@ -44,9 +44,14 @@ The installed live build is **CatteBot 0.9.7-33**.
 - Replay runs can now align every normalized beatmap event to exact-time head and controller poses after strict full-map-key matching. The aligner uses an explicit clock offset, exact frames or bounded interpolation, and reports wrong-map, empty, out-of-range, and excessive-gap issues. It still requires feature extraction and safety evaluation, is not learning-ready, and is disconnected from live motion.
 - The phrase policy, pattern recognition, and new motion constraints are installed foundations; they do not yet replace the current live pass-first saber planner.
 
+- The installed 1.0.7 pair adds bounded Catte-weighted replay-imitation fitting and held-out evaluation; it remains offline and does not control live sabers.
+- Bounded BSOR v1 files can now be read through hash-bound, read-only sidecars with exact replay, map, calibration, completion, and contributor identity; audited 1.39.1 left-handed controller roles are normalized offline.
+- Exact-hash Standard legacy v2/v3 maps can now be normalized and aligned offline, including the audited Grains of Catte static-coordinate subset.
+- Vanilla v3 burst sliders now use the audited Beat Saber 1.39.1 head classification, slice timing, squished spawn curve, and final-slice metadata during offline map inspection and alignment.
+
 # What to test
 
-1. Start Beat Saber and confirm the newest log says **CatteBot 0.9.7.33** is initializing.
+1. Start Beat Saber and confirm the newest log says **CatteBot 1.0.7.0** is initializing.
 2. Play any map, press **F9** to enable CatteBot, and finish or leave the song normally.
 3. Open the newest CatteBot report and check that **Trace enabled** is True, **Applied-pose rows** is greater than zero, and **Trace write errors** is 0.
 4. Check that the reported CatteBot_trajectory_trace_*.csv file exists.
@@ -58,3 +63,5 @@ The installed live build is **CatteBot 0.9.7-33**.
 10. Note whether any miss happens immediately after a reset, during a stack, or because the saber moved away from a note to avoid a bomb.
 11. Pattern recognition and motion-intent selection, including dot paths, technical sliders, mixed-colour pairs, dot walls, linked arcs, chains, streams, vibro, jumps, dense sections, crossovers, palm-up candidates, wrist rolls, and wrist resets, are not connected to live swing generation yet. The new offline Loloppe, Paul, Wide-Paul, metronome, dot-path, technical-slider, directional and directionless mixed-colour-pair, same-hand and mixed-hand dot-wall candidate, native arc and chain, stream and vibro, jump, dense-section, and ergonomic contact trajectories plus the replay-calibratable contact-pose conversion, anatomy-constrained grip/reach/wrist solver, static body-collision validator, bounded swept body-collision validator, whole-trajectory collision gate, normalized replay-run contract, replay-dataset validation gate, leakage-safe held-out split, and replay-to-event alignment are also not connected. Report any new behavior change as a regression.
 12. Before the next feature, provide the newest CatteBot report, trajectory trace CSV, and Beat Saber log, plus the visual observations above.
+13. Play the built-in **Magic** on **ExpertPlus** (or another vanilla v3 burst-slider map) and confirm CatteBot starts and leaves the map without a new exception or load failure.
+14. This increment should not change live saber motion. Report any new swing behavior as a regression and provide the newest Beat Saber log and CatteBot report.
